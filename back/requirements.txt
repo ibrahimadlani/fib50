@@ -1,0 +1,15 @@
+asgiref==3.7.2
+certifi @ file:///private/tmp/python-certifi-20231008-5412-1rk63p1/certifi-2023.7.22
+cffi @ file:///private/tmp/cffi-20231014-5454-1xfyd4s/cffi-1.16.0
+Django==4.2.2
+djangorestframework==3.14.0
+docutils @ file:///private/tmp/docutils-20231015-5350-1xd6hrn/docutils-0.20.1
+greenlet==2.0.2
+msgpack==1.0.5
+numpy==1.26.2
+packaging @ file:///private/tmp/python-packaging-20231018-5228-nhvg0j/packaging-23.2
+pycparser @ file:///private/tmp/pycparser-20231013-5559-1dtd22y/pycparser-2.21
+pynvim==0.4.3
+pytz==2023.3
+six==1.16.0
+sqlparse==0.4.4
