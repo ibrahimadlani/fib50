@@ -12,7 +12,7 @@ class DummyEndpoint(APIView):
     A simple API endpoint that returns a dummy response.
     """
 
-    def get(self, request, format=None):
+    def get(self, request): # pylint: disable=unused-argument
         """
         Return a JSON response with dummy data.
         """

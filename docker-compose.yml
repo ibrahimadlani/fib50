@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./back
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+       - ./back:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=database
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./front
+      args:
+        - DEV=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/app
+
+  database:
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+volumes:
+  dev-db-data:
