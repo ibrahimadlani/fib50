@@ -9,6 +9,7 @@ django-dotenv
 django-storages==1.11.1
 django-cors-headers==4.3.1
 djangorestframework==3.15.1
+djangorestframework-simplejwt
 iniconfig==2.0.0
 isort==5.13.2
 mccabe==0.7.0
