@@ -7,20 +7,26 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+
 class DummyEndpoint(APIView):
     """
     A simple API endpoint that returns a dummy response.
     """
 
-    def get(self, request): # pylint: disable=unused-argument
+    def get(self, request):  # pylint: disable=unused-argument
         """
         Return a JSON response with dummy data.
         """
-        
-        data = { 'fib': self._fibonacci(55) }
+
+        data = {"fib": self._fibonacci(55)}
         return Response(data, status=status.HTTP_200_OK)
-    
-    def _fibonacci(self, n, memo = {}):
+
+    def _fibonacci(self, n, memo=None):
+        """
+        Return the n-th Fibonacci number.
+        """
+        if memo is None:
+            memo = {}
         if n in memo:
             return memo[n]
         if n <= 1:

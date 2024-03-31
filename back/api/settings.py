@@ -57,9 +57,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "api.wsgi.application"
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -68,13 +68,7 @@ DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 DB_DATABASE = os.environ.get("POSTGRES_DB")
 DB_HOST = os.environ.get("POSTGRES_HOST")
 DB_PORT = os.environ.get("POSTGRES_PORT")
-DB_IS_AVAIL = all([
-    DB_USERNAME,
-    DB_PASSWORD,
-    DB_DATABASE,
-    DB_HOST,
-    DB_PORT
-])
+DB_IS_AVAIL = all([DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_HOST, DB_PORT])
 
 POSTGRES_READY = str(os.environ.get("POSTGRES_READY")) == "1"
 
