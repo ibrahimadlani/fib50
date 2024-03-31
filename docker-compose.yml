@@ -30,6 +30,7 @@ services:
 
   database:
     image: postgres:13-alpine
+    restart: always
     command: -p 5432
     env_file:
       - ./back/.env
