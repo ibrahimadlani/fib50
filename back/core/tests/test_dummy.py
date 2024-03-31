@@ -11,17 +11,10 @@ class TestDummyEndpoint:
 
     def test_dummy_endpoint(self):
         """Function printing python version."""
-        # Create a request factory
         factory = APIRequestFactory()
-
-        # Create a GET request to the DummyEndpoint
         request = factory.get('/dummy-endpoint/')
         response = DummyEndpoint.as_view()(request)
-
-        # Assert the response status code
         assert response.status_code == 200
-
-        # Assert the response data
         expected_data = {
             'message': 'Mon endpoint est fonctionnel !',
             'data': {

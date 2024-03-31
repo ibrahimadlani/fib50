@@ -1,12 +1,13 @@
 FROM python:3.11.5-alpine3.18
+
 LABEL maintainer="ibrahimadlani"
 
 ENV PYTHONUNBUFFERED 1
 
+WORKDIR /app
+
 COPY ./requirements.txt /tmp/requirements.txt
 COPY . /app
-WORKDIR /app
-EXPOSE 8000
 
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
@@ -20,5 +21,9 @@ RUN python -m venv /py && \
         --disabled-password \
         --no-create-home \
         django-user
+
 ENV PATH="/py/bin:$PATH"
+
 USER django-user
+
+EXPOSE 8000
