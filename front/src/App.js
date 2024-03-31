@@ -1,5 +1,3 @@
-import logo from "./logo.svg";
-import "./App.css";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -23,11 +21,13 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="text-center">
       {dummyData ? (
         <>
-          <p>Response from API:</p>
-          <pre>{JSON.stringify(dummyData, null, 2)}</pre>
+          <p className="text-gray-500">Response from API:</p>
+          <h1 className="text-3xl font-bold">
+            {dummyData.fib}
+          </h1>
         </>
       ) : (
         <p>Loading...</p>
