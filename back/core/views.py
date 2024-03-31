@@ -6,6 +6,9 @@ This file is used to define the views of the core app.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework.generics import RetrieveAPIView
+from .serializers import UserSerializer
 
 
 class DummyEndpoint(APIView):
@@ -34,3 +37,10 @@ class DummyEndpoint(APIView):
         if n not in memo:
             memo[n] = self._fibonacci(n - 1, memo) + self._fibonacci(n - 2, memo)
         return memo[n]
+
+
+
+class UserDetailAPIView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'id'  # You can use 'pk' as well, which is equivalent.
