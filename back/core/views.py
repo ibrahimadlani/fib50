@@ -17,7 +17,7 @@ class DummyEndpoint(APIView):
         Return a JSON response with dummy data.
         """
         
-        data = { 'fib': self._fibonacci(700) }
+        data = { 'fib': self._fibonacci(55) }
         return Response(data, status=status.HTTP_200_OK)
     
     def _fibonacci(self, n, memo = {}):
