@@ -20,10 +20,8 @@ RUN python -m venv /py && \
         --disabled-password \
         --no-create-home \
         django-user && \
-    chmod +x /app/entrypoint.sh
+    chmod +x entrypoint.sh
 
 ENV PATH="/py/bin:$PATH"
 
 USER django-user
-
-EXPOSE 8000
