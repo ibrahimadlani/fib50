@@ -1,14 +1,27 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; 
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ProfilePage, SigninPage, LoginPage } from "./pages";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route 
+            path="/"
+            element={<LoginPage />}
+          />
+          <Route
+            path="/signin"
+            element={<SigninPage />}
+          />
+          <Route
+            path="/profile"
+            element={<PrivateRoute Component={ProfilePage} />}
+          />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }

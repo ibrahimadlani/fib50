@@ -17,7 +17,7 @@ class TestDummyEndpoint:
         request = factory.get("/dummy-endpoint/")
         response = DummyEndpoint.as_view()(request)
         assert response.status_code == 200
-        expected_data = {'fib': 139583862445}
+        expected_data = {"fib": 139583862445}
         assert response.data == expected_data
 
     def test_dummy_endpoint_fib_10(self):
@@ -26,5 +26,5 @@ class TestDummyEndpoint:
         request = factory.get("/dummy-endpoint/")
         response = DummyEndpoint.as_view()(request)
         assert response.status_code == 200
-        expected_data = {'fib': 13958862445}
+        expected_data = {"fib": 13958862445}
         assert response.data != expected_data
