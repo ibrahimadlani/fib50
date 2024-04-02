@@ -30,7 +30,7 @@ jobs:
 
     - name: Lint with pylint
       run: |
-        pylint **/*.py
+        pylint core
 
     - name: Run pytest and coverage
       run: |
