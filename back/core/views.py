@@ -19,7 +19,6 @@ from .serializers import (
 )
 
 
-
 class FibonacciListCreateAPIView(generics.ListCreateAPIView):
     """This class retrieves, updates, and deletes a Fibonacci result."""
 
@@ -107,14 +106,16 @@ class ChangePasswordView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class UserFibonacciHistoryAPIView(ListAPIView):
-    """ This class retrieves the last 20 Fibonacci results for a user."""
+    """This class retrieves the last 20 Fibonacci results for a user."""
+
     permission_classes = [IsAuthenticated]
     serializer_class = FibonacciResultSerializer
 
     def get_queryset(self):
-        user_id = self.kwargs.get('user_id')
-        return Fibonacci.objects.filter(user__id=user_id).order_by('-computed_at')[:20]
+        user_id = self.kwargs.get("user_id")
+        return Fibonacci.objects.filter(user__id=user_id).order_by("-computed_at")[:20]
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -122,11 +123,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
 
-        token['username'] = user.username
-        token['email'] = user.email
+        token["username"] = user.username
+        token["email"] = user.email
 
         return token
-    
+
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
