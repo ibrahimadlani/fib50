@@ -1,129 +1,112 @@
-import React from 'react'
-import { createContext, useState, useEffect } from 'react'
-import { jwtDecode } from 'jwt-decode'
-import { useNavigate } from 'react-router-dom'
+import { createContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+  let [authTokens, setAuthTokens] = useState(() =>
+    localStorage.getItem("authTokens")
+      ? JSON.parse(localStorage.getItem("authTokens"))
+      : null
+  );
+  let [user, setUser] = useState(() =>
+    localStorage.getItem("authTokens")
+      ? jwtDecode(localStorage.getItem("authTokens"))
+      : null
+  );
+  let [loading, setLoading] = useState(true);
 
-    
-    let [user, setUser] = useState( () => {
-        if (localStorage.getItem('authTokens')) {
-            return jwtDecode(JSON.parse(localStorage.getItem('authTokens').access))
-        } else {
-            return null
-        }
+  const navigate = useNavigate();
+
+  let loginUser = async (e) => {
+    e.preventDefault();
+    let response = await fetch("http://localhost:8001/api/token/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: e.target.username.value,
+        password: e.target.password.value,
+      }),
+    });
+    let data = await response.json();
+
+    if (response.status === 200) {
+      console.log("login success");
+      setAuthTokens(data);
+      setUser(jwtDecode(data.access));
+      localStorage.setItem("authTokens", JSON.stringify(data));
+      navigate("/profile");
+    } else {
+      console.log("login failed");
     }
-    )
-    let [authTokens, setAuthTokens] = useState( localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens').access) : null)
-    let [loading, setLoading] = useState(true)
-    const navigate = useNavigate()
+  };
 
-    let loginUser = async (e) => {
-        e.preventDefault()
-        let response = await fetch('http://localhost:8001/api/token/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + authTokens
-            },
-            body: JSON.stringify({
-                username: e.target.username.value,
-                password: e.target.password.value
-            })
-        })
+  let logoutUser = () => {
+    console.log("logout");
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+    navigate("/");
+  };
 
+  let updateToken = async () => {
+    let response = await fetch("http://localhost:8001/api/token/refresh/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refresh: authTokens?.refresh }),
+    });
 
-        let data = await response.json()
-        if (response.status === 200) {
-            setAuthTokens(data)
-            setUser(jwtDecode(data.access))
-            localStorage.setItem('authTokens', JSON.stringify(data))
-            localStorage.setItem('user', JSON.stringify(jwtDecode(data.access)))
-            navigate('/profile')
-        }
-    }
+    let data = await response.json();
 
-    let signupUser = async (e) => {
-        e.preventDefault()
-        let response = await fetch('http://localhost:8001/api/users/create/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: e.target.username.value,
-                email: e.target.email.value,
-                password: e.target.password.value
-            })
-        })
-
-        let data = await response.json()
-        if (response.status === 201) {
-            setAuthTokens(data)
-            setUser(jwtDecode(data.access))
-            localStorage.setItem('authTokens', JSON.stringify(data))
-            navigate('/profile')
-        }
-    }
-
-    let logoutUser = () => {
-        setAuthTokens(null)
-        setUser(null)
-        localStorage.removeItem('authTokens')
-        navigate('/')
-        console.log('logged out')
-    }
-
-    let updateTokens = async (data) => {
-        let response = await fetch('http://localhost:8001/api/token/refresh/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + authTokens.access
-            },
-            body: JSON.stringify({ "refresh": authTokens.refresh })
-        })
-
-        let newdata = await response.json()
-
-        if (response.status === 200) {
-            setAuthTokens(newdata)
-            setUser(jwtDecode(newdata.access))
-            localStorage.setItem('authTokens', JSON.stringify(newdata))
-        } else {
-            logoutUser()
-        }
+    if (response.status === 200) {
+      const updatedTokens = {
+        ...authTokens, // spread the existing tokens to retain the refresh token
+        access: data.access, // overwrite the access token with the new one
+      };
+      setAuthTokens(updatedTokens);
+      setUser(jwtDecode(data.access));
+      localStorage.setItem("authTokens", JSON.stringify(updatedTokens));
+    } else {
+      logoutUser();
     }
 
+    if (loading) {
+      setLoading(false);
+    }
+  };
 
-    let contextData = {
-        user: user,
-        authTokens: authTokens,
-        loginUser: loginUser,
-        logoutUser: logoutUser,
-        signupUser: signupUser
+  let contextData = {
+    user: user,
+    authTokens: authTokens,
+    loginUser: loginUser,
+    logoutUser: logoutUser,
+  };
+
+  useEffect(() => {
+    if (loading) {
+      updateToken();
     }
 
-    useEffect(() => {
-        let interval = setInterval(() => {
-            if (authTokens) {
-                updateTokens()
-                console.log('token refreshed')
-            }
-        }, 1000 * 60 * 30)
-        return () => {
-            clearInterval()
-        }
+    let fourMinutes = 1000 * 60 * 4;
 
-    }, [authTokens, loading])
+    let interval = setInterval(() => {
+      if (authTokens) {
+        updateToken();
+      }
+    }, fourMinutes);
+    return () => clearInterval(interval);
+  }, [authTokens, loading]);
 
-    return (
-        <AuthContext.Provider value={contextData}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider value={contextData}>
+      {loading ? null : children}
+    </AuthContext.Provider>
+  );
+};
