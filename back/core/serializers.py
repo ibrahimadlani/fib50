@@ -1,10 +1,12 @@
 """ Serializers """
 
 import time
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from .models import User, FibonacciResult
+
+from .models import FibonacciResult, User
 
 
 class FibonacciResultSerializer(serializers.ModelSerializer):

@@ -1,15 +1,17 @@
 """Tests for the FibonacciResultSerializer."""
 
 from datetime import datetime
+
 import pytest
-from django.urls import reverse
-from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
-from ..serializers import FibonacciResultSerializer
+
 from ..models import FibonacciResult
+from ..serializers import FibonacciResultSerializer
 
 
 @pytest.mark.django_db

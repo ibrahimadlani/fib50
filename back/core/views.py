@@ -3,20 +3,17 @@ This file is used to define the views of the core app.
 
 """
 
-from rest_framework import generics
-from rest_framework import status, permissions
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import generics, permissions, status
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
 from .models import FibonacciResult, User
-from .serializers import (
-    FibonacciResultSerializer,
-    UserSerializer,
-    ChangePasswordSerializer,
-)
+from .serializers import (ChangePasswordSerializer, FibonacciResultSerializer,
+                          UserSerializer)
 
 
 class FibonacciListCreateAPIView(generics.ListCreateAPIView):
