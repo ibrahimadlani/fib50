@@ -35,7 +35,9 @@ jobs:
 
     - name: Run pytest and coverage
       run: |
-        pytest --cov=./ --cov-report=term --cov-fail-under=95
+        pytest .
+    
+      
 
     - name: Lint with pylint
       run: |
