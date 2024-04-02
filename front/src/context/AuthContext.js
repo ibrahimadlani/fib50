@@ -11,14 +11,14 @@ export const AuthProvider = ({ children }) => {
 
     
     let [user, setUser] = useState( () => {
-        if (localStorage.getItem('authTokens').access) {
-            return jwtDecode(JSON.parse(localStorage.getItem('authTokens')).access)
+        if (localStorage.getItem('authTokens')) {
+            return jwtDecode(JSON.parse(localStorage.getItem('authTokens').access))
         } else {
             return null
         }
     }
     )
-    let [authTokens, setAuthTokens] = useState( localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
+    let [authTokens, setAuthTokens] = useState( localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens').access) : null)
     let [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
