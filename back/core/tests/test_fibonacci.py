@@ -1,9 +1,9 @@
 """Tests for the FibonacciResultSerializer."""
+
 from datetime import datetime
 import pytest
 from django.contrib.auth import get_user_model
 from ..serializers import FibonacciResultSerializer
-
 
 
 @pytest.mark.django_db
