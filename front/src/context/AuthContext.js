@@ -2,6 +2,7 @@ import React from 'react'
 import { createContext, useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const AuthContext = createContext()
 
@@ -36,8 +37,33 @@ export const AuthProvider = ({ children }) => {
             })
         })
 
+
         let data = await response.json()
         if (response.status === 200) {
+            setAuthTokens(data)
+            setUser(jwtDecode(data.access))
+            localStorage.setItem('authTokens', JSON.stringify(data))
+            localStorage.setItem('user', JSON.stringify(jwtDecode(data.access)))
+            navigate('/profile')
+        }
+    }
+
+    let signupUser = async (e) => {
+        e.preventDefault()
+        let response = await fetch('http://localhost:8001/api/users/create/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: e.target.username.value,
+                email: e.target.email.value,
+                password: e.target.password.value
+            })
+        })
+
+        let data = await response.json()
+        if (response.status === 201) {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem('authTokens', JSON.stringify(data))
@@ -79,7 +105,8 @@ export const AuthProvider = ({ children }) => {
         user: user,
         authTokens: authTokens,
         loginUser: loginUser,
-        logoutUser: logoutUser
+        logoutUser: logoutUser,
+        signupUser: signupUser
     }
 
     useEffect(() => {

@@ -48,27 +48,32 @@ class FibonacciResultSerializer(serializers.ModelSerializer):
             a, b = b, a + b
         return a
 
-
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the User model."""
 
     class Meta:
         """Meta class for the UserSerializer."""
-
         model = User
         fields = ["id", "username", "email", "password"]
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {"password": {"write_only": True, "required": False}}
 
     def create(self, validated_data):
+        """Create and return a new user."""
         user = User.objects.create_user(**validated_data)
         return user
 
     def update(self, instance, validated_data):
+        """Update and return an existing user."""
+        # Remove the password from validated_data if present.
+        validated_data.pop('password', None)
+
+        # Update the instance for other fields if present in validated_data.
         instance.username = validated_data.get("username", instance.username)
         instance.email = validated_data.get("email", instance.email)
-        if "password" in validated_data:
-            instance.set_password(validated_data["password"])
+        
+        # Save the updated instance.
         instance.save()
+
         return instance
 
 

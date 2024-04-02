@@ -16,7 +16,6 @@ from .views import (
     UserCreateAPIView,
     UserRUDAPIView,
     ChangePasswordView,
-    UserFibonacciHistoryAPIView
 )
 
 urlpatterns = [
@@ -42,7 +41,7 @@ urlpatterns = [
     ),
     path(
         "users/<int:user_id>/fibonacci/history/",
-        UserFibonacciHistoryAPIView.as_view(),
+        UserLastFibonacciAPIView.as_view(),
         name="user-fibonacci-history",
     ),
     path("users/create/", UserCreateAPIView.as_view(), name="user-create"),
