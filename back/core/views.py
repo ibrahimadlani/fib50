@@ -12,8 +12,11 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import FibonacciResult, User
-from .serializers import (ChangePasswordSerializer, FibonacciResultSerializer,
-                          UserSerializer)
+from .serializers import (
+    ChangePasswordSerializer,
+    FibonacciResultSerializer,
+    UserSerializer,
+)
 
 
 class FibonacciListCreateAPIView(generics.ListCreateAPIView):
