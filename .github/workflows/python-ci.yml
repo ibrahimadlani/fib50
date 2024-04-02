@@ -30,15 +30,17 @@ jobs:
       run: |
         black --check .
 
-    - name: Lint with pylint
-      run: |
-        pylint --rcfile=./back/.pylintrc ./back/core
-        pylint --rcfile=./back/.pylintrc ./back/api
+
     
 
     - name: Run pytest and coverage
       run: |
         pytest --cov=./ --cov-report=term --cov-fail-under=95
+
+    - name: Lint with pylint
+      run: |
+        pylint --rcfile=./back/.pylintrc ./back/core
+        pylint --rcfile=./back/.pylintrc ./back/api
 
     # Add additional steps for your build process as needed
     - name: Build
