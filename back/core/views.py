@@ -87,9 +87,11 @@ class UserRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ChangePasswordView(APIView):
+    """This class allows a user to change their password."""
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
+        """ POST method to change the user's password. """
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
             user = request.user
@@ -119,6 +121,7 @@ class UserFibonacciHistoryAPIView(ListAPIView):
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Custom TokenObtainPairSerializer to include additional user data in the response."""
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -130,4 +133,5 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
+    """ Custom TokenObtainPairView to use the custom serializer. """
     serializer_class = MyTokenObtainPairSerializer
