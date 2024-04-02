@@ -3,7 +3,11 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import FibonacciLogo from "../images/fibonacci_logo.svg";
 import { Dialog, Transition } from "@headlessui/react";
-import { TrashIcon, XMarkIcon, InboxIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  XMarkIcon,
+  InboxIcon,
+} from "@heroicons/react/24/outline";
 import { ArrowLeftIcon, ArrowPathIcon } from "@heroicons/react/20/solid";
 import AuthContext from "../context/AuthContext";
 
@@ -133,6 +137,8 @@ const Profile = () => {
         },
       })
       .then((response) => {
+         
+          
         setHistory(history.filter((item) => item.id !== id));
       })
       .catch((error) => {
@@ -154,6 +160,7 @@ const Profile = () => {
       setUser(response.data);
       setUsername(response.data.username);
       setEmail(response.data.email.replace("@deezer.com", ""));
+      
     } catch (err) {
       setLastFibonacci({
         parameter: "",

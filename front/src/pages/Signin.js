@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FibonacciLogo from "../images/fibonacci_logo.svg";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const SigninPage = () => {
   let navigate = useNavigate();
@@ -10,7 +10,7 @@ const SigninPage = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState("");
 
   //Input validation
@@ -18,9 +18,7 @@ const SigninPage = () => {
     return password === confirmPassword;
   };
   const passwordFormat = () => {
-    return password.match(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-    );
+    return password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
   };
   const usernameFormat = () => {
     return username.match(/^[a-zA-Z0-9_]{5,}[a-zA-Z]+[0-9]*$/);
@@ -28,32 +26,27 @@ const SigninPage = () => {
   const isValidEmailPrefix = () => {
     return email.match(/^[a-zA-Z0-9_.-]+$/);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error message
-
+    setError(''); // Reset error message
+    
     if (!isValidEmailPrefix()) {
-      setError(
-        "Invalid email prefix. Please use only letters, numbers, dots, underscores and dashes."
-      );
+      setError('Invalid email prefix. Please use only letters, numbers, dots, underscores and dashes.');
       return;
-    } else if (!usernameFormat()) {
-      setError(
-        "Invalid username. Please use at least 5 characters, one letter and one number."
-      );
+    }else if (!usernameFormat()) {
+      setError('Invalid username. Please use at least 5 characters, one letter and one number.');
       return;
-    } else if (!passwordsMatch()) {
-      setError("Passwords do not match.");
+    }else if (!passwordsMatch()) {
+      setError('Passwords do not match.');
       return;
-    } else if (!passwordFormat()) {
-      setError(
-        "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character."
-      );
+    }else if (!passwordFormat()) {
+      setError('Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character.');
       return;
     }
 
     try {
-      let deezerEmail = email + "@deezer.com";
+      let deezerEmail = email + '@deezer.com';
       const response = await axios.post(
         `http://localhost:8001/api/users/create/`,
         {
@@ -63,7 +56,7 @@ const SigninPage = () => {
         }
       );
 
-      navigate("/");
+      navigate('/');
     } catch (err) {
       setError("Failed to sign in. Please check your email and password.");
     }
@@ -73,7 +66,17 @@ const SigninPage = () => {
     <>
       {error && <div className="alert">{error}</div>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <div className="rounded-sm flex  items-center justify-center">
+            <div className="rounded-md flex h-12 w-12 border items-center justify-center shadow-sm">
+              <img className="h-8" src={FibonacciLogo} alt="Fibonacci" />
+            </div>
+          </div>
+          <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Fibonacci
+          </h2>
+          <p className=" text-center text-sm text-gray-500">Sign In</p>
+        </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>

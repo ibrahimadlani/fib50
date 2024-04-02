@@ -1,8 +1,7 @@
-import PrivateRoute from "./utils/PrivateRoute";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ProfilePage, SigninPage, LoginPage } from "./pages";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
   return (

@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 @keyframes spin-three-times {
-  from {
-    transform: rotate(0deg);
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(1080deg);
+    }
   }
-  to {
-    transform: rotate(1080deg);
+  
+  .animate-spin-three-times {
+    animation: spin-three-times 1s ease-in-out;
   }
-}
-
-.animate-spin-three-times {
-  animation: spin-three-times 1s ease-in-out;
-}
