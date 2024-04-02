@@ -27,9 +27,6 @@ class FibonacciResult(models.Model):
         help_text="The date and time when the calculation was executed.",
     )
 
-    def __str__(self):
-        return f"<Fib({self.parameter})={self.result} by {self.user}>"
-
     class Meta:  # py
         """Meta class for the FibonacciResult model."""
 
