@@ -32,8 +32,8 @@ jobs:
 
     - name: Lint with pylint
       run: |
-        pylint --rcfile=.pylintrc ./back/core
-        pylint --rcfile=.pylintrc ./back/api
+        pylint --rcfile=./back/.pylintrc ./back/core
+        pylint --rcfile=./back/.pylintrc ./back/api
     
 
     - name: Run pytest and coverage
