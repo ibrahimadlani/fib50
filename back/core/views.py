@@ -55,7 +55,7 @@ class UserLastFibonacciAPIView(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request, user_id):
+    def get(self, user_id):
         """GET method to retrieve the last Fibonacci result for a user."""
         last_fibonacci = (
             FibonacciResult.objects.filter(user_id=user_id)
@@ -117,7 +117,7 @@ class UserFibonacciHistoryAPIView(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs.get("user_id")
-        return Fibonacci.objects.filter(user__id=user_id).order_by("-computed_at")[:20]
+        return FibonacciResult.objects.filter(user__id=user_id).order_by("-computed_at")[:20]
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
