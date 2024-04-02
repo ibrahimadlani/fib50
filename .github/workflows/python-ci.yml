@@ -26,23 +26,23 @@ jobs:
         
 
 
-    - name: Check code formatting with Black
+    - name: Black formatting
       run: |
         black --check .
 
 
     
 
-    - name: Run pytest and coverage
+    - name: Test run
       run: |
         pytest ./back
       
-    - name: Run pytest with coverage
+    - name: Test coverage
       run: |
         pytest ./back --cov=./back/core --cov-report=term --cov-fail-under=80
       
 
-    - name: Lint with pylint
+    - name: Pylint linting
       run: |
         pylint --rcfile=./back/.pylintrc ./back/core
         pylint --rcfile=./back/.pylintrc ./back/api
