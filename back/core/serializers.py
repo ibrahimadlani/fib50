@@ -83,19 +83,23 @@ User = get_user_model()
 
 
 class ChangePasswordSerializer(serializers.Serializer):
+    """Serializer for the ChangePasswordView."""
+
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
     confirm_new_password = serializers.CharField(required=True)
 
     def validate_new_password(self, value):
+        """Validate the new password."""
         validate_password(value)
         return value
 
-    def validate(self, data):
-        if data["new_password"] != data["confirm_new_password"]:
+    def validate(self, attrs):
+        """Validate the serializer data."""
+        if attrs["new_password"] != attrs["confirm_new_password"]:
             raise serializers.ValidationError(
                 {
                     "new_password": "Le nouveau mot de passe et la confirmation ne correspondent pas."
                 }
             )
-        return data
+        return attrs
