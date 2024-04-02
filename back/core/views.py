@@ -88,10 +88,11 @@ class UserRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class ChangePasswordView(APIView):
     """This class allows a user to change their password."""
+
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        """ POST method to change the user's password. """
+        """POST method to change the user's password."""
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
             user = request.user
@@ -117,11 +118,14 @@ class UserFibonacciHistoryAPIView(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs.get("user_id")
-        return FibonacciResult.objects.filter(user__id=user_id).order_by("-computed_at")[:20]
+        return FibonacciResult.objects.filter(user__id=user_id).order_by(
+            "-computed_at"
+        )[:20]
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     """Custom TokenObtainPairSerializer to include additional user data in the response."""
+
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -133,5 +137,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
-    """ Custom TokenObtainPairView to use the custom serializer. """
+    """Custom TokenObtainPairView to use the custom serializer."""
+
     serializer_class = MyTokenObtainPairSerializer

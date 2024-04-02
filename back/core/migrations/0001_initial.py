@@ -6,7 +6,8 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    """ This file is used to create the initial model for the core app. """
+    """This file is used to create the initial model for the core app."""
+
     initial = True
 
     dependencies = [

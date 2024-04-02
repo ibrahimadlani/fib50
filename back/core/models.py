@@ -30,7 +30,7 @@ class FibonacciResult(models.Model):
     def __str__(self):
         return f"<Fib({self.parameter})={self.result} by {self.user}>"
 
-    class Meta: # noqa
+    class Meta:  # noqa
         """Meta class for the FibonacciResult model."""
 
         verbose_name = "Fibonacci Result"
