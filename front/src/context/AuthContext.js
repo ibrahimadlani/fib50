@@ -36,22 +36,21 @@ export const AuthProvider = ({ children }) => {
     let data = await response.json();
 
     if (response.status === 200) {
-      console.log("login success");
       setAuthTokens(data);
       setUser(jwtDecode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
       navigate("/profile");
     } else {
-      console.log("login failed");
     }
   };
 
   let logoutUser = () => {
-    console.log("logout");
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    navigate("/");
+    if (window.location.pathname === "/profile") {
+      navigate("/");
+    }
   };
 
   let updateToken = async () => {
