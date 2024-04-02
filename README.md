@@ -56,7 +56,7 @@ To get started with the application, follow these steps:
     ```
    
 ## Running the Application
-Once you've installed and configured the application, running it is simple. Follow these steps to get it up and running on your local machine.
+Once you've installed and configured the application, follow these steps to get it up and running on your local machine.
 
 ### Starting the Application
 
@@ -71,7 +71,7 @@ docker-compose up
 After the containers are up and running, you can access the application through your web browser. If you're running everything with default settings, the URLs might look like this:
 
 - **React Application:** [http://localhost:3000](http://localhost:3000)
-- **Django Backend API:** [http://localhost:8000](http://localhost:8001)
+- **Django Backend API:** [http://localhost:8001](http://localhost:8001)
 
 ### Stopping the Application
 
@@ -79,4 +79,4 @@ To stop the application, press `Ctrl + C` in the terminal where the containers a
 
 ```bash
 docker-compose down
-
+```
