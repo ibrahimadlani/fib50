@@ -3,7 +3,8 @@ This file is used to define the urls of the core app.
 """
 
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
+
 
 from .views import (
     ChangePasswordView,
