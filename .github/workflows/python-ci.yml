@@ -41,6 +41,3 @@ jobs:
       run: |
         pylint --rcfile=./back/.pylintrc ./back/core
         pylint --rcfile=./back/.pylintrc ./back/api
-
-    - name: Build
-      run: echo "Add your build command here"
