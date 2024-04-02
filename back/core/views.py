@@ -55,7 +55,7 @@ class UserLastFibonacciAPIView(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, user_id):
+    def get(self, request, user_id, *args, **kwargs):
         """GET method to retrieve the last Fibonacci result for a user."""
         last_fibonacci = (
             FibonacciResult.objects.filter(user_id=user_id)

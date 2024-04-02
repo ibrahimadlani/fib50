@@ -49,6 +49,6 @@ urlpatterns = [
     path(
         "users/change-password/", ChangePasswordView.as_view(), name="change-password"
     ),
-    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("token/", TokenObtainPairView.as_view(), name="token-obtain-pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token-refresh"),
 ]
