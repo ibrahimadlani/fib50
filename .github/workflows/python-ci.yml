@@ -28,12 +28,9 @@ jobs:
       run: |
         black --check .
 
-    - name: LS
-      run: |
-        ls .
     - name: Lint with pylint
       run: |
-        pylint .
+        pylint ./back/core
     
 
     - name: Run pytest and coverage
