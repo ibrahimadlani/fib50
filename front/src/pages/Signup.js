@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, Fragment, useContext } from "react";
 import FibonacciLogo from "../images/fibonacci_logo.svg";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Transition } from "@headlessui/react";
+import { XMarkIcon, InboxIcon } from "@heroicons/react/24/outline";
+import AuthContext from '../context/AuthContext';
 
-const SigninPage = () => {
+const SignupPage = () => {
   let navigate = useNavigate();
+  let { SignupPage } = useContext(AuthContext);
 
   //Form fields
   const [email, setEmail] = useState("");
@@ -12,6 +16,7 @@ const SigninPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState("");
+  const [alert, setAlert] = useState(false);
 
   //Input validation
   const passwordsMatch = () => {
@@ -26,7 +31,6 @@ const SigninPage = () => {
   const isValidEmailPrefix = () => {
     return email.match(/^[a-zA-Z0-9_.-]+$/);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(''); // Reset error message
@@ -58,13 +62,62 @@ const SigninPage = () => {
 
       navigate('/');
     } catch (err) {
-      setError("Failed to sign in. Please check your email and password.");
+      setError("Failed to sign up. Please check your email and password.");
     }
   };
 
   return (
     <>
-      {error && <div className="alert">{error}</div>}
+      {error && 
+      
+      <div
+        aria-live="assertive"
+        className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+      >
+        <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+          <Transition
+            show={alert}
+            as={Fragment}
+            enter="transform ease-out duration-300 transition"
+            enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+            enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="p-4">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0  text-indigo-500">
+                    <InboxIcon
+                      className="h-6 w-6 text-gray-400"
+                      aria-hidden="true"
+                      stroke="#5046e5"
+                    />
+                  </div>
+                  <div className="ml-3 w-0 flex-1 pt-0.5">
+                    <p className="text-sm font-medium text-gray-900">Error</p>
+                    <p className="mt-1 text-sm text-gray-500">{error}</p>
+                  </div>
+                  <div className="ml-4 flex flex-shrink-0">
+                    <button
+                      type="button"
+                      className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={() => {
+                        setAlert(false);
+                      }}
+                    >
+                      <span className="sr-only">Close</span>
+                      <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </div>
+      }
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="rounded-sm flex  items-center justify-center">
@@ -75,10 +128,10 @@ const SigninPage = () => {
           <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Fibonacci
           </h2>
-          <p className=" text-center text-sm text-gray-500">Sign In</p>
+          <p className=" text-center text-sm text-gray-500">Sign Up</p>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={SignupPage}>
             <div>
               <div className="flex items-center justify-between">
                 <label
@@ -182,7 +235,7 @@ const SigninPage = () => {
             <div>
               <button
                 type="submit"
-                onSubmit={() => {}}
+                onClick={handleSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Compute Fib(x)
@@ -205,4 +258,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default SignupPage;

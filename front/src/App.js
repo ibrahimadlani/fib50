@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { ProfilePage, SigninPage, LoginPage } from "./pages";
+import { ProfilePage, SignupPage, LoginPage } from "./pages";
 import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
@@ -13,8 +13,8 @@ function App() {
             element={<LoginPage />}
           />
           <Route
-            path="/signin"
-            element={<SigninPage />}
+            path="/signup"
+            element={<SignupPage />}
           />
           <Route
             path="/profile"
