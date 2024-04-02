@@ -2,7 +2,6 @@ import React from 'react'
 import { createContext, useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
 const AuthContext = createContext()
 
@@ -12,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
     
     let [user, setUser] = useState( () => {
-        if (localStorage.getItem('authTokens')) {
+        if (localStorage.getItem('authTokens').access) {
             return jwtDecode(JSON.parse(localStorage.getItem('authTokens')).access)
         } else {
             return null
