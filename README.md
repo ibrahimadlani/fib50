@@ -5,11 +5,6 @@ A straightforward web solution for computing and tracking Fibonacci sequences. S
 
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
-- [Development](#development)
-  - [Frontend Development](#frontend-development)
-  - [Backend Development](#backend-development)
-- [Testing](#testing)
-- [Deployment](#deployment)
 
 ## Installation
 
