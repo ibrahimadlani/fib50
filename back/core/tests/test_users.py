@@ -11,7 +11,7 @@ from rest_framework.test import APIClient
 def test_create_user():
     """Test creating a new user."""
     client = APIClient()
-    url = reverse("user-create")  # Adjust the URL name as necessary
+    url = reverse("user-create")
     data = {
         "username": "newuser",
         "email": "newuser@example.com",
@@ -30,7 +30,7 @@ def test_change_password(django_user_model):
     )
     client = APIClient()
     client.force_authenticate(user=user)
-    url = reverse("change-password")  # Adjust the URL name as necessary
+    url = reverse("change-password")
     data = {
         "old_password": "oldpassword",
         "new_password": "newpassword123",
