@@ -54,9 +54,7 @@ def test_fibonacci_results_by_user():
         date_launched=timezone.now(),
     )
 
-    url = reverse(
-        "fibonacci-by-user", kwargs={"user_id": user.id}
-    )
+    url = reverse("fibonacci-by-user", kwargs={"user_id": user.id})
     response = client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
@@ -85,9 +83,7 @@ def test_user_last_fibonacci():
         date_launched=timezone.now() + timezone.timedelta(seconds=1),
     )
 
-    url = reverse(
-        "user-last-fibonacci", kwargs={"user_id": user.id}
-    )
+    url = reverse("user-last-fibonacci", kwargs={"user_id": user.id})
     response = client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
