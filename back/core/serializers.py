@@ -28,8 +28,7 @@ class FibonacciResultSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-        Surcharge de la méthode `create` pour calculer le résultat de Fibonacci
-        avant de sauvegarder l'objet dans la base de données.
+        Create and return a new Fibonacci result.
         """
         parameter = validated_data.get("parameter")
         start_time = time.time()
@@ -41,14 +40,14 @@ class FibonacciResultSerializer(serializers.ModelSerializer):
 
     def calculate_fibonacci(self, n):
         """
-        Méthode pour calculer le n-ème nombre de Fibonacci.
-        Note: Cette implémentation n'est pas la plus efficace pour de grands nombres
-        mais suffit pour des exemples simples.
+        Fibbonaci function to calculate the nth number in the sequence.
         """
+        if n == 0: return 0
+        elif n == 1: return 1
         a, b = 0, 1
-        for _ in range(n):
+        for _ in range(2, n + 1):
             a, b = b, a + b
-        return a
+        return b
 
 
 class UserSerializer(serializers.ModelSerializer):
