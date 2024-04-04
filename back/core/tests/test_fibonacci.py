@@ -42,12 +42,10 @@ def test_fibonacci_result_serializer():
 @pytest.mark.django_db
 def test_fibonacci_results_by_user():
     """Test the FibonacciResultsByUserAPIView."""
-    # Setup test user and fibonacci results
     user = User.objects.create_user(username="testuser", password="12345")
     client = APIClient()
     client.force_authenticate(user=user)
 
-    # Create FibonacciResult instances
     FibonacciResult.objects.create(
         user=user,
         parameter=5,
@@ -58,11 +56,11 @@ def test_fibonacci_results_by_user():
 
     url = reverse(
         "fibonacci-by-user", kwargs={"user_id": user.id}
-    )  # Adjust the URL name as per your urls.py
+    )
     response = client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    assert len(response.data) == 1  # Assuming only one result is created
+    assert len(response.data) == 1
 
 
 @pytest.mark.django_db
@@ -89,7 +87,7 @@ def test_user_last_fibonacci():
 
     url = reverse(
         "user-last-fibonacci", kwargs={"user_id": user.id}
-    )  # Adjust the URL name as per your urls.py
+    )
     response = client.get(url)
 
     assert response.status_code == status.HTTP_200_OK
