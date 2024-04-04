@@ -94,8 +94,8 @@ export const AuthProvider = ({ children }) => {
 
     if (response.status === 200) {
       const updatedTokens = {
-        ...authTokens, // spread the existing tokens to retain the refresh token
-        access: data.access, // overwrite the access token with the new one
+        ...authTokens,
+        access: data.access,
       };
       setAuthTokens(updatedTokens);
       setUser(jwtDecode(data.access));

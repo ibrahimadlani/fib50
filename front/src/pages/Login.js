@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { LogoDisplay, PageTitle, LoginForm, SignUpSuggestion } from "../components";
 import FibonacciLogo from "../images/fibonacci_logo.svg";
 import AuthContext from '../context/AuthContext';

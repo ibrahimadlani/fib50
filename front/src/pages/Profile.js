@@ -164,7 +164,6 @@ const Profile = () => {
     }
   };
 
-  // Use effect
   useEffect(() => {
     fetchUserData();
     axios
