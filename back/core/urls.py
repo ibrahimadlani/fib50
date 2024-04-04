@@ -17,7 +17,6 @@ from .views import (
 )
 
 urlpatterns = [
-    # Fibonacci Endpoint
     path("fibonacci/", FibonacciListCreateAPIView.as_view(), name="fibonacci-list"),
     path(
         "fibonacci/create/",

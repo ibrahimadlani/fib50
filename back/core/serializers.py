@@ -68,14 +68,9 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """Update and return an existing user."""
-        # Remove the password from validated_data if present.
         validated_data.pop("password", None)
-
-        # Update the instance for other fields if present in validated_data.
         instance.username = validated_data.get("username", instance.username)
         instance.email = validated_data.get("email", instance.email)
-
-        # Save the updated instance.
         instance.save()
 
         return instance

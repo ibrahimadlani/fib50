@@ -27,7 +27,7 @@ class FibonacciResult(models.Model):
         help_text="The date and time when the calculation was executed.",
     )
 
-    class Meta:  # py
+    class Meta:
         """Meta class for the FibonacciResult model."""
 
         verbose_name = "Fibonacci Result"
